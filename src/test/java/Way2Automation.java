@@ -1,4 +1,5 @@
 import org.openqa.selenium.By;
+import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
@@ -11,6 +12,7 @@ import java.sql.DriverManager;
 import java.util.concurrent.TimeUnit;
 
 public class Way2Automation {
+
     public static boolean assertEquals(String actual, String expected) {
         return actual.equals(expected);
     }
@@ -738,6 +740,199 @@ public class Way2Automation {
         actions.clickAndHold(resizableElement).moveByOffset(300, 50).build().perform();
     }
 
+    @Test//Frames and Windows - open new window
+    public void TS8Way2AutoTC1() {
+        ChromeDriver driver = new ChromeDriver();
+        driver.manage().window().maximize();
+        driver.get("https://www.way2automation.com/way2auto_jquery/droppable.php#load_box");
+        try {
+            TimeUnit.SECONDS.sleep(2);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+
+        driver.findElement(By.xpath("/html/body/section/div[1]/div[2]/div[3]/ul/li/a/figure")).click();
+        try {
+            TimeUnit.SECONDS.sleep(2);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        driver.switchTo().frame(driver.findElement(By.xpath("/html/body/section/div[1]/div[1]/div[3]/div[1]/div/iframe")));
+        driver.findElement(By.xpath("/html/body/div/p/a")).click();
+    }
+
+    @Test//Frames and Windows - open separate window
+    public void TS8Way2AutoTC2() {
+        ChromeDriver driver = new ChromeDriver();
+        driver.manage().window().maximize();
+        driver.get("https://www.way2automation.com/way2auto_jquery/droppable.php#load_box");
+        try {
+            TimeUnit.SECONDS.sleep(2);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+
+        driver.findElement(By.xpath("/html/body/section/div[1]/div[2]/div[3]/ul/li/a/figure")).click();
+        driver.findElement(By.xpath("/html/body/section/div[1]/div[1]/div[1]/ul/li[2]/a")).click();
+        try {
+            TimeUnit.SECONDS.sleep(2);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        driver.switchTo().frame(driver.findElement(By.xpath("/html/body/section/div[1]/div[1]/div[3]/div[2]/div/iframe")));
+        driver.findElement(By.xpath("/html/body/div/p/a")).click();
+    }
+
+    @Test//Frames and Windows - frameset
+    public void TS8Way2AutoTC3() {
+        ChromeDriver driver = new ChromeDriver();
+        driver.manage().window().maximize();
+        driver.get("https://www.way2automation.com/way2auto_jquery/droppable.php#load_box");
+        try {
+            TimeUnit.SECONDS.sleep(2);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+
+        driver.findElement(By.xpath("/html/body/section/div[1]/div[2]/div[3]/ul/li/a/figure")).click();
+        driver.findElement(By.xpath("/html/body/section/div[1]/div[1]/div[1]/ul/li[3]")).click();
+        try {
+            TimeUnit.SECONDS.sleep(2);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        driver.switchTo().frame(driver.findElement(By.xpath("/html/body/section/div[1]/div[1]/div[3]/div[3]/div/iframe")));
+        driver.findElement(By.xpath("/html/body/div/p/a")).click();
+    }
+
+    @Test//Frames and Windows - open multiple windows
+    public void TS8Way2AutoTC4() {
+        ChromeDriver driver = new ChromeDriver();
+        driver.manage().window().maximize();
+        driver.get("https://www.way2automation.com/way2auto_jquery/droppable.php#load_box");
+        try {
+            TimeUnit.SECONDS.sleep(2);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+
+        driver.findElement(By.xpath("/html/body/section/div[1]/div[2]/div[3]/ul/li/a/figure")).click();
+        driver.findElement(By.xpath("/html/body/section/div[1]/div[1]/div[1]/ul/li[4]/a")).click();
+        try {
+            TimeUnit.SECONDS.sleep(2);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        driver.switchTo().frame(driver.findElement(By.xpath("/html/body/section/div[1]/div[1]/div[3]/div[4]/div/iframe")));
+        driver.findElement(By.xpath("/html/body/div/p/a")).click();
+    }
+
+    @Test//Dropdown - select country
+    public void T9Way2AutoTC1() {
+        ChromeDriver driver = new ChromeDriver();
+        driver.manage().window().maximize();
+        driver.get("https://www.way2automation.com/way2auto_jquery/droppable.php#load_box");
+        try {
+            TimeUnit.SECONDS.sleep(2);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+
+        driver.findElement(By.xpath("/html/body/section/div[1]/div[2]/div[4]/ul/li[2]/a/figure")).click();
+        try {
+            TimeUnit.SECONDS.sleep(2);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        driver.switchTo().frame(driver.findElement(By.xpath("/html/body/section/div[1]/div[1]/div[3]/div[1]/div/iframe")));
+        driver.findElement(By.xpath("/html/body/select")).click();
+
+        driver.findElement(By.xpath("/html/body/section/div[1]/div[2]/div[4]/ul/li[2]/a/figure")).click();
+        try {
+            TimeUnit.SECONDS.sleep(2);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        driver.switchTo().frame(driver.findElement(By.xpath("/html/body/section/div[1]/div[1]/div[3]/div[1]/div/iframe")));
+        driver.findElement(By.xpath("/html/body/select")).click();
+        driver.findElement(By.xpath("/html/body/select")).sendKeys(Keys.ARROW_DOWN, Keys.ARROW_DOWN, Keys.ENTER);
+
+//        JavascriptExecutor js = (JavascriptExecutor) driver;
+//        WebElement el = driver.findElement(By.xpath("/html/body/select/option[126]"));
+//        el.click();
+//        Actions action = new Actions(driver);
+//        action.moveToElement(el).perform();
+//        try {
+//            TimeUnit.SECONDS.sleep(2);
+//        } catch (InterruptedException e) {
+//            e.printStackTrace();
+//        }
+//        driver.quit();
+
+        // Select row based on a string present
+//        driver.findElement(By.xpath("/html/body/select[contains(text(), 'Lithuania')]")).click();
+//
+//        driver.quit();
+
+//        JavascriptExecutor je = (JavascriptExecutor) driver;
+//        try {
+//            TimeUnit.SECONDS.sleep(2);
+//        } catch (InterruptedException e) {
+//            e.printStackTrace();
+//        }
+//        je.executeScript("dropdown.scrollBy(0,3000)");
+//        WebElement element = driver.findElement(By.linkText("Lithuania"));
+//        je.executeScript("arguments[0].scrollIntoView();", element);
+    }
+
+    @Test//Dropdown - select country
+    public void T9Way2AutoTC2() {
+        ChromeDriver driver = new ChromeDriver();
+        driver.manage().window().maximize();
+        driver.get("https://www.way2automation.com/way2auto_jquery/droppable.php#load_box");
+        try {
+            TimeUnit.SECONDS.sleep(2);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+
+        driver.findElement(By.xpath("/html/body/section/div[1]/div[2]/div[4]/ul/li[2]/a/figure")).click();
+        driver.findElement(By.xpath("/html/body/section/div[1]/div[1]/div[1]/ul/li[2]/a")).click();
+        try {
+            TimeUnit.SECONDS.sleep(2);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        driver.switchTo().frame(driver.findElement(By.xpath("/html/body/section/div[1]/div[1]/div[3]/div[2]/div/iframe")));
+        driver.findElement(By.id("combobox")).click();
+        driver.findElement(By.id("combobox")).sendKeys(Keys.ARROW_DOWN, Keys.ARROW_DOWN, Keys.ENTER);
+    }
+
+//    @Test//Registration
+//    public void T10Way2AutoTC1() {
+//        ChromeDriver driver = new ChromeDriver();
+//        driver.manage().window().maximize();
+//        driver.get("https://www.way2automation.com/way2auto_jquery/droppable.php#load_box");
+//        try {
+//            TimeUnit.SECONDS.sleep(2);
+//        } catch (InterruptedException e) {
+//            e.printStackTrace();
+//        }
+//
+//        driver.findElement(By.xpath("/html/body/section/div[1]/div[2]/div[5]/ul/li/a/figure")).click();
+//        try {
+//            TimeUnit.SECONDS.sleep(2);
+//        } catch (InterruptedException e) {
+//            e.printStackTrace();
+//        }
+//
+//
+//        driver.switchTo().frame(driver.findElement(By.xpath("/html/body/section/div[1]/div[1]/div[3]/div[2]/div/iframe")));
+//        driver.findElement(By.id("combobox")).click();
+//        driver.findElement(By.id("combobox")).sendKeys(Keys.ARROW_DOWN, Keys.ARROW_DOWN, Keys.ENTER);
+//    }
+
+
 //    driver.switchTo().defaultContent();
 
 //      try {
@@ -753,6 +948,8 @@ public class Way2Automation {
 
     //WebElement resultText = driver.findElement(By.id("datepicker"));
     //String fieldValue = resultText.getAttribute("value");
+
+//    options.addArguments("--disable-notifications");//prie setup
 
     //https://ultimateqa.com/complicated-page
     //Su login forms: Iš valdincinės užduoties, kuri mūsų prašo sudėti du skaičius -
